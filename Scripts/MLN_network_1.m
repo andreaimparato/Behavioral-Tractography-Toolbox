@@ -9,10 +9,13 @@ for iter = 1:1
 % load data set
 load EMA_data.mat
 
-% selecting only controls with IQ evaluated
-try_table(not(strcmp(try_table.Diagnosis,'Normal_Control')),:) = [];
-try_table(isnan(try_table.FSIQ),:) = [];
-try_table((try_table.FSIQ==0),:) = [];
+% selecting population (Normal_Control, VCFS, Autism)
+Chose_Group = "VCFS";
+try_table(not(strcmp(try_table.Diagnosis,Chose_Group)),:) = [];
+if strcmp(Chose_Group, "Normal_Control")
+    try_table(isnan(try_table.FSIQ),:) = [];
+    try_table((try_table.FSIQ==0),:) = [];
+end
 
 
 %Load symptoms / nodes names
@@ -102,10 +105,10 @@ Completed = Completed(find(vtp));
 end
 
 
-%% chose groupe for matrix
+%% print number of subject
 for iter = 1:1
 
-Chose_Group = "Normal_Control";
+
 max(size(unique(ParticipantID(strcmp(Groupe,Chose_Group)))))
 
 end
