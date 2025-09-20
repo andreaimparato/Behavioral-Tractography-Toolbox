@@ -1,0 +1,17 @@
+{
+	"files": [
+		"scripts/00_frontend_function.js",
+		"scripts/01_layer.js",
+		"scripts/02_node_creation.js",
+		"scripts/02b_node_creation.js",
+        "scripts/03_edge_draw.js",
+        "scripts/04_load_files.js",
+        "scripts/05_command.js",
+        "scripts/06_mediarecorder.js",
+        "scripts/07_p5.js"
+	],
+	"out": "dist/app.js",
+	"header" : "/* dev.mlnetwork-diplab.ch\n\nVersion 1.2\n*/\n\n",
+	"footer": "/* patrizio anselmi 2024*/",
+	"fileheader":"/*${filename}*/"
+}
