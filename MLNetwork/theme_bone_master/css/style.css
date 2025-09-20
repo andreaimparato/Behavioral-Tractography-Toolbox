@@ -1,0 +1,1137 @@
+@font-face {
+    font-family: 'IcoMoon-Free';
+    src: url('../font/IcoMoon-Free.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+}
+
+input, button {
+    font-family: 'Poppins', sans-serif;
+}
+
+button,
+.comand-item-button .button {
+    cursor: pointer;
+}
+
+button:hover,
+.comand-item-button .button:hover {
+    opacity: 0.6;
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #28306E;
+}
+
+.menu {
+    position: fixed;
+    background: #fff;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 290px;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 48px 24px 0;
+    transition: all 0.5s ease-out;
+}
+
+.logo {
+    text-align: center;
+    padding: 0 0 48px;
+    color: #3878F6;
+    font-size: 24px;
+    font-weight: 200;
+}
+
+.logo span {
+    font-weight: 600;
+}
+
+.comands .title span {
+    display: inline-block;
+    font-size: 12px;
+    color: #AABFEE;
+    text-transform: uppercase;
+    background: #fff;
+    padding: 0 12px;
+}
+
+.comands .title {
+    text-align: center;
+    margin-top: -13px;
+}
+
+.comands {
+    border-top: 1px solid #AABFEE;
+}
+
+.comand-items {
+    padding-top: 42px;
+}
+
+.comand-item .label {
+    font-size: 14px;
+    color: #33393C;
+    line-height: 1;
+}
+
+.comand-item {
+    border-bottom: 1px solid #33393C;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+}
+
+.menu-layer {
+    display: none;
+}
+
+.input-minus-plus {
+    padding-top: 12px;
+}
+
+.input-minus-plus button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #3878F6;
+    color: #3878F6;
+    background: #fff;
+    font-size: 28px;
+    line-height: 28px;
+    margin: 0 24px 0 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.input-minus-plus {
+    font-size: 0;
+}
+
+.comand-item .label {
+    letter-spacing: 2px;
+}
+
+.comand-item .label.button {
+    position: relative;
+}
+
+.comand-item .label.button:after {
+    content: "\e9bd";
+    font-family: 'IcoMoon-Free';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+}
+
+.comand-item {
+    position: relative;
+}
+
+.comand-item.selected .menu-layer {
+    display: block;
+}
+
+.comand-item .menu-layer {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    left: 266px;
+    padding: 24px;
+    top: -26px;
+    width: 240px;
+}
+
+.menu-layer button {
+    display: block;
+    width: 100%;
+    margin: 0 0 12px;
+}
+
+.body {
+    height: 100vh;
+    background: linear-gradient(242.91deg, #F3F8FF -3.46%, #CCD5EA 85.99%);
+    padding: 0 0 0 300px;
+    transition: all 0.5s ease-in;
+}
+
+.header {
+    font-size: 0;
+    padding: 24px 0 0;
+}
+
+.header .intro {
+    font-size: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    /* width: 40%; */
+    box-sizing: border-box;
+    padding: 0 0 0 24px;
+}
+
+.interactions {
+    vertical-align: middle;
+    display: inline-block;
+    /* width: 60%; */
+    text-align: right;
+    box-sizing: border-box;
+    padding: 0 24px 0 0;
+}
+
+.interactions .load-file {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 24px 0 0;
+}
+
+.interactions .screen-recording,
+.interactions .download-json,
+.interactions .save-image {
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 1px solid #AABFEE;
+}
+
+.download-json,
+.save-image {
+    padding-right: 24px;
+}
+
+.file-loaded {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    text-align: left;
+    line-height: 1.2;
+    padding: 0 24px 0 0;
+    font-weight: 600;
+}
+
+.file-loaded span {
+    display: block;
+    font-weight: 300;
+}
+
+
+.load-file button,
+.load-file input {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 10px 20px;
+    line-height: 1;
+    border: 0;
+    background: #F6CB5C;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+}
+.interactions .screen-recording:before,
+.interactions .download-json:before,
+.interactions .save-image:before {
+    content: "\e9c7";
+    font-family: 'IcoMoon-Free';
+}
+
+.interactions .screen-recording button,
+.interactions .load-json button,
+.interactions .download-json button,
+.interactions .save-image button {
+    margin: 0 0 0 24px;
+    border: 0;
+    padding: 13px 20px;
+    color: #fff;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.interactions .screen-recording button,
+.interactions .download-json button,
+.interactions .save-image button {
+    background: #bec5ca;
+    pointer-events: none;
+}
+
+body[file-load] .interactions .screen-recording button,
+body[file-load] .interactions .download-json button,
+body[file-load] .interactions .save-image button {
+    background: #EB9B42;
+    pointer-events: all;
+}
+
+.interactions .screen-recording button:before,
+.interactions .download-json button:before,
+.interactions .load-json button:before,
+.interactions .save-image button:before {
+    font-family: 'IcoMoon-Free';
+    display: inline-block;
+    font-size: 19px;
+    vertical-align: middle;
+    padding: 0 10px 0 0;
+    margin-top: -4px;
+}
+
+.interactions .screen-recording button:before{
+    content: "\e914";
+}
+.interactions .download-json button:before{
+    content: "\e9c7";
+}
+.interactions .save-image button:before {
+    content: "\e90f";
+}
+input#fileinput:before {
+    content: "\e9c8";
+    font-family: 'IcoMoon-Free';
+    display: inline-block;
+    font-size: 19px;
+    vertical-align: middle;
+    padding: 0 10px 0 0;
+    margin-top: 0px;
+    color:#ffffff;
+}
+
+
+
+
+.interactions .load-file button:before {
+    content: '+';
+    display: inline-block;
+    font-size: 21px;
+    vertical-align: middle;
+    padding: 0 6px 0 0;
+}
+
+
+.menu-collapse button:before {
+    content: "\ea40";
+    font-family: 'IcoMoon-Free';
+}
+
+.menu-collapse {
+    display: inline-block;
+    position: fixed;
+    top: 0;
+    left: 253px;
+    transition: all 0.5s ease-out;
+}
+
+.menu-collapse button {
+    border: 0;
+    background: #fff;
+    padding: 12px;
+    border-radius: 0 4px 4px 0;
+    color: #3878F6;
+}
+
+body.menu-collapsed .menu {
+    left: -290px;
+}
+
+body.menu-collapsed .menu .menu-collapse {
+    left: 0;
+}
+
+body.menu-collapsed .menu .menu-collapse button:before {
+    content: "\ea3c";
+}
+
+body.menu-collapsed .body {
+    padding-left: 38px;
+}
+
+.logo:before {
+    content: "\eae9";
+    font-family: 'IcoMoon-Free';
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 6px 0 0;
+    font-size: 30px;
+}
+
+
+
+/*******/
+/*
+form#jsonFile {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    border: 0px;
+}
+
+fieldset {
+    border: 0px;
+}
+*/
+
+.load-file input#fileinput {
+    /* background: transparent; */
+    color: #33393C;
+    text-align: right;
+    width: 250px;
+}
+
+form#jsonFile {
+    text-align: right;
+}
+
+.body {
+    height: auto;
+    background: rgba(255, 255,255, 0.6);
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header {
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+
+.comandi-bottom {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: rgba(255,255,255,0.6);
+    box-sizing: border-box;
+    padding: 24px;
+    text-align: center;
+    z-index: 1;
+    transition: all 0.5s ease-out;
+}
+
+.item-title {
+    font-size: 14px;
+    color: #33393C;
+    font-weight: 500;
+    letter-spacing: 3px;
+    padding: 0 0 12px;
+}
+
+.comando-bottom-item-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #fff;
+    background: #AABFEE;
+    margin: 0 0 24px;
+    padding: 6px;
+    border-radius: 2px;
+    line-height: 1;
+}
+
+.comandi-bottom .group {
+    padding: 0 0 48px;
+}
+
+input#canvasColor {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 0;
+    background: transparent;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.item-input.input-arrows {
+    position: relative;
+    width: 68px;
+    height: 68px;
+    margin: 0 auto;
+}
+
+.item-input.input-arrows button.arrow {
+    border: 0;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    display: block;
+}
+
+.item-input.input-arrows button.arrow:before {
+    content: "\ea50";
+    font-family: 'IcoMoon-Free';
+    font-size: 30px;
+    display: block;
+    line-height: 1;
+}
+
+.item-input.input-arrows button.arrow.arrow-down {
+    top: inherit;
+    bottom: 0;
+}
+
+.item-input.input-arrows button.arrow.arrow-down:before {
+    transform: rotate(180deg);
+}
+
+.item-input.input-arrows button.arrow.arrow-left {
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+}
+
+.item-input.input-arrows button.arrow.arrow-left:before {
+    transform: rotate(-90deg);
+}
+
+.item-input.input-arrows button.arrow.arrow-right:before {
+    transform: rotate(90deg);
+}
+
+.item-input.input-arrows button.arrow.arrow-right {
+    top: 50%;
+    right: 0px;
+    transform: translate(0, -50%);
+    left: inherit;
+}
+
+.comandi-bottom .group .item {
+    padding: 0 0 24px;
+}
+
+.comandi-bottom .group:last-child {
+    padding-bottom: 0;
+}
+
+.comandi-bottom .group .item:last-child {
+    padding-bottom: 0;
+}
+
+.comandi-collapse {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    transition: all 0.5s ease-in;
+}
+
+.comandi-collapse button {
+    border: 0;
+    background: #fff;
+    padding: 12px;
+    border-radius: 0 4px 4px 0;
+    color: #3878F6;
+}
+
+.comandi-collapse button:before {
+    content: "\ea3c";
+    font-family: 'IcoMoon-Free';
+}
+
+.comandi-bottom.collapsed {
+    right: -170px;
+}
+
+.comandi-bottom.collapsed .comandi-collapse {
+    left: -46px;
+}
+
+.comandi-bottom.collapsed .comandi-collapse button {
+    border-radius: 4px 0 0 4px;
+}
+
+.comandi-bottom.collapsed .comandi-collapse button:before {
+    content: "\ea40";
+}
+
+
+/* lista nodi e layer */
+span.node_color {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+}
+
+span.node_label {
+    text-align: left;
+    display: inline-block;
+    width: 66%;
+}
+.menu-layer button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nodi_wrapper {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.menu-layer.listanodi {
+    height: 260px;
+}
+
+.menu-layer.listalayer.selected {
+    display: block;
+}
+.menu-layer.listanodi.selected {
+    display: block;
+}
+
+/*
+.textPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 300000;
+    width: 400px;
+    height: auto;
+    transform: translate(-50%,-50%);
+    background-color: #fbf5f5;
+    padding: 40px;
+}
+    padding: 0px 4px;
+*/
+
+.textPopup {
+    position: fixed;
+    background: #fff;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 290px;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 48px 24px 0;
+    transition: all 0.5s ease-out;
+    display:none;
+}
+
+.textPopup span.label {
+    display: block;
+    padding: 6px;
+    box-sizing: border-box;
+    margin: 4px;
+    line-height: 1;
+}
+
+.textPopup input {
+    width: 100%;
+    box-sizing: border-box;
+}
+.position.position_contaniner input {
+    max-width: 42px;
+}
+
+
+.position {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 20px 0;
+}
+
+.button {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttonCancel {
+    width: 50%;
+    text-align: center;
+    border:1px solid #d0d0d0;
+    margin:4px;
+    cursor:pointer;
+    background-color:#d9cece
+}
+
+.buttonSave {
+    width: 50%;
+    text-align: center;
+    border:1px solid #d0d0d0;
+    margin:4px;
+    cursor:pointer;
+    background-color:#d9cece
+}
+
+span.top,
+span.bottom,
+span.left,
+span.right {
+    width:25%;
+    text-align:center;
+    border:1px solid #d0d0d0;
+    margin:4px;
+    cursor:pointer;
+    background-color:#d9cece;
+    padding: 0px 4px;
+}
+
+
+/* DRAWER NODI */
+.drawer {
+    position: fixed;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: -300px;
+    z-index: 2;
+    width: 290px;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 0 48px 0 0;
+    transition: all 0.5s ease-out;
+}
+.drawer.open {
+    left: 0;
+}
+
+.drawer .wrapper {
+    background: #fff;
+    box-sizing: border-box;
+    padding: 24px;
+    height: 100vh;
+}
+
+.details-item {
+    font-size: 14px;
+    color: #33393C;
+    padding-top: 12px;
+    border-bottom: 1px solid #DAE2F2;
+}
+
+.details-item .info {
+    font-size: 0;
+    padding-bottom: 12px;
+}
+
+.details-item .info .layer {
+    font-size: 12px;
+    color: #AABFEE;
+    text-transform: uppercase;
+    width: 30%;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.details-item .info .manage {
+    width: 70%;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.details-item .info .manage button {
+    font-size: 9px;
+    text-align: right;
+}
+
+.drawer .dynamic-content {
+    overflow-y: scroll;
+    max-height: calc(100vh - 90px);
+}
+
+.panel .textPopup {
+    position: relative;
+    width: auto;
+    height: inherit;
+    top: inherit;
+    left: inherit;
+    z-index: inherit;
+    padding: 12px;
+    background: #F0F0F0;
+}
+
+.panel .textPopup .label {
+    display: none;
+}
+
+
+.position.position_contaniner {
+    display: block;
+}
+
+.position_item .position_item_controls span.control_button {
+    width: 70px;
+    height: 34px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    line-height: 34px;
+    text-transform: uppercase;
+    font-size: 10px;
+    text-align: center;
+    border: 1px solid #d0d0d0;
+    background: #d9cece;
+    cursor: pointer;
+}
+
+.textPopup[xxx-label-position="right"]  span.right,
+.textPopup[xxx-label-position="left"]  span.left,
+.textPopup[xxx-label-position="bottom"]  span.bottom,
+.textPopup[xxx-label-position="false"]  span.top,
+.textPopup[xxx-label-position="top"]  span.top, 
+.textPopup[xxx-label-style="regular"] .style_button.regular,
+.textPopup[xxx-label-style="bold"] .style_button.bold
+{
+    background-color:#2753D1;
+    color:#ffffff;
+}
+
+.position_item {
+    padding: 0 0 18px;
+}
+
+.position_item_title {
+    padding: 0 0 6px;
+}
+.position.position_contaniner input {
+    display: block;
+    width: 70px;
+    height: 34px;
+    max-width: inherit;
+    border: solid 1px #2753D1;
+}
+
+.position_item_controls > span {
+    display: inline-block;
+}
+
+.position.position_contaniner label {
+    font-size: 10px;
+    color: #28306E;
+}
+
+.position.position_contaniner .button {
+    border-top: 1px solid #DAE2F2;
+}
+
+.position.position_contaniner .button > div {
+    background: none;
+    border: none;
+    width: 50%;
+    display: inline-block;
+    margin: 0;
+    padding: 10px 0;
+    text-decoration: underline;
+}
+
+.position.position_contaniner {
+    margin: 0;
+}
+
+.panel .textPopup {
+    padding-bottom: 0;
+}
+.position_item_controls input#canvasColor {
+    display: block;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+}
+
+.details-item .info .manage button {
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: none;
+    font-size: 0;
+}
+
+.details-item .info .manage button.manage-config:before {
+    content: "\e905";
+    display: block;
+    font-size: 14px;
+    font-family: 'IcoMoon-Free';
+}
+
+.details-item .info .manage button.manage-show:before {
+    content: '\e9ce';
+    display: block;
+    font-size: 14px;
+    font-family: 'IcoMoon-Free';
+}
+
+.close a:before {
+    content: '\ea0f';
+    display: block;
+    font-family: 'IcoMoon-Free';
+    font-size: 24px;
+}
+
+.close a {
+    color: #525D84;
+    text-decoration: none;
+    font-size: 0;
+    display: inline-block;
+    line-height: 1;
+}
+
+.close {
+    text-align: right;
+    padding: 0 0 16px;
+}
+
+.drawer-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #fff;
+    background: #AABFEE;
+    margin: 0;
+    padding: 6px;
+    border-radius: 4px 4px 0 0;
+    line-height: 1;
+    text-align: center;
+}
+
+.position.position_contaniner .button > div.buttonSave {
+    color: #ababab;
+}
+
+.position.position_contaniner[data-changed="true"] .button > div.buttonSave {
+    color: #33393C;
+}
+
+.details-item.layers-details-item .title {
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 30px);
+}
+
+.details-item.layers-details-item .info {
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 0;
+    width: 20px;
+}
+
+.details-item.layers-details-item {
+    padding-bottom: 12px;
+}
+
+.details-item .info .manage button.manage-show[cc-item-hide="true"]:before {
+    content: "\e9d1";
+    text-decoration: none;
+}
+
+.load-message {
+    color: grey;
+    padding: 24px 0 0;
+}
+
+.position_item .item_name input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 4px;
+    font-size: 11px;
+}
+
+.position_item .item_name {
+    padding: 0;
+    width: 148px;
+}
+
+.screen-recording button span,
+.download-json button span,
+.save-image button span {
+    display:none;
+}
+.interactions .screen-recording button:before, 
+.interactions .download-json button:before, 
+.interactions .load-json button:before, 
+.interactions .save-image button:before {
+    padding: 0 0 0 0; 
+}
+
+input#fileinput {
+    max-width: 20px;
+    min-height: 20px;
+    font-size: 0px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+}
+
+input[type="file"]::file-selector-button {
+  border: 0px solid transparent;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  background-color: transparent;
+}
+
+
+/* video recorder temp css - start */
+
+.screen-recording{display:inline-block}
+.screen-recording[xxx-video-recorder="false"] button.stop-recording{display:none}
+.screen-recording[xxx-video-recorder="false"] button.start-recording{display:inline-block}
+.screen-recording[xxx-video-recorder="true"] button.start-recording{display:none}
+.screen-recording[xxx-video-recorder="true"] button.stop-recording{display:inline-block}
+body[file-load] .screen-recording[xxx-video-recorder="true"] button {
+  animation: rec_color 1s infinite linear;
+}
+
+@keyframes rec_color {
+  0%   { background: #dbdbdb; }
+  25%  { background: #be0e4a; }
+  50%   { background: #dbdbdb; }
+  75%  { background: #be0e4a; }
+  100%   { background: #dbdbdb; }
+}
+
+
+div#videoContainer {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000cc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+div#videoPlayerBox {
+    display: flex;
+    padding: 30px;
+    background-color: #000000;
+    flex-direction: column;
+    align-content: flex-end;
+    align-items: flex-end;
+}
+
+div#videoPlayerBox video {
+    width: 33vw;
+    height: 33vh;
+}
+.closeVideoBox {
+    width: 30px;
+    height: 30px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    cursor:pointer;
+}
+
+.closeVideoBox:before {
+    content: "\ea0d";
+    font-family: 'IcoMoon-Free';
+    font-size: 30px;
+    line-height: 1;
+    color: #ffffff;
+}
+
+a#downloadVideo {
+    color: #ffffff;
+}
+/* video recorder temp css - stop */
+
+
+@media only screen and (min-width: 1400px) {
+    .screen-recording button span,
+    .download-json button span,
+    .save-image button span {
+        display:inline-block;
+    }
+    .interactions .screen-recording button:before, 
+    .interactions .download-json button:before, 
+    .interactions .load-json button:before, 
+    .interactions .save-image button:before {
+        padding: 0px 20px 0px 0px;
+    }
+
+    input#fileinput {
+        max-width: initial;
+        min-height: initial;
+        font-size: 14px;
+        display: inline-block;
+        border: initial;
+    }
+    
+    input[type="file"]::file-selector-button {
+      border: 0px solid transparent;
+      padding: 0.2em 0.4em;
+      border-radius: 0.2em;
+      background-color: transparent;
+    }
+    
+
+}
+
+@media only screen and (max-height: 700px) {
+    .menu {
+        padding-top: 24px;
+    }
+    
+    .logo {
+        font-size: 18px;
+        padding-bottom: 36px;
+    }
+    
+    .logo:before {
+        font-size: 20px;
+    }
+    
+    .comand-items {
+        padding-top: 24px;
+    }
+    
+    .comand-item .label {
+        font-size: 12px;
+    }
+    
+    .input-minus-plus button {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .comand-item {
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+    }
+    
+    .comando-bottom-item-title {
+        margin-bottom: 18px;
+    }
+    
+    .comandi-bottom .group {
+        padding-bottom: 24px;
+    }
+    
+    .item-title {
+        padding-bottom: 6px;
+    }
+    
+    .header .intro {
+        font-size: 18px;
+    }
+    
+    .header {
+        padding: 6px 0;
+    }
+}

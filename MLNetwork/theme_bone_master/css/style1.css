@@ -1,0 +1,31 @@
+.toolbar.top {
+    height: 55px;
+    background-color: #59514A;
+}
+
+.toolbar.bottom {
+    position:absolute;
+    height: 55px;
+    width:100vw;
+    bottom:0px;
+    background-color: #59514A;
+}
+
+button[cc-item-hide="true"],
+button[cc-item-hide="true"] span{
+    opacity:.5;
+    text-decoration:line-through;
+}
+
+.comando-bottom-item-title.labelSize {
+    display: flex;
+    background: #7e8288;
+    justify-content: space-evenly;
+    font-size: 16px;
+    padding: 4px;
+}
+
+
+.comando-bottom-item-title.labelSize div {
+    cursor: pointer;
+}

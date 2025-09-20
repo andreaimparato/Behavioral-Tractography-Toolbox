@@ -1,0 +1,1114 @@
+/* 3d graph visualizer - start */ 
+ /* src/00_frontend_function.js - start*/ 
+function layerList() {
+    
+    let template = '';
+    const layerListEl = document.querySelector('.drawer_layers .dynamic-content');
+    for (const [index, obj] of zzzz.entries()) {
+    let obj_level = obj.name;
+    let obj_z = parseFloat(obj.position_x);
+    let obj_floor_current_color = obj.floor_current_color;
+    let obj_geometry_parameters_width = parseFloat(obj.geometry_parameters_width);
+    let obj_last_layer_scale = "1";
+    let obj_name = obj.name;
+    let obj_position_x = parseFloat(obj.position_x);
+    let obj_position_y = parseFloat(obj.position_y);
+    let obj_position_z = parseFloat(obj.position_z);
+    let obj_rotation_x = parseFloat(obj.rotation_x);
+    let obj_rotation_y = parseFloat(obj.rotation_y);
+    let obj_rotation_z = parseFloat(obj.rotation_z);
+    const buttonEl = document.createElement('button');
+    buttonEl.setAttribute('xx-data-id', index);
+    buttonEl.setAttribute('xx-data-level', obj_level);
+
+    buttonEl.textContent = obj_level;
+    //template += buttonEl.outerHTML;
+
+    template += `<div class="details-item layers-details-item">
+                    <div class="title">${obj_level}</div>
+                    <div class="info">
+                        <div class="manage">
+                            <button class="manage-show" xx-data-id="${index}" xx-data-level="${obj_level}">show/hide</button>
+                        </div>
+                    </div>
+                </div>`;
+    }
+
+
+    var hasDataBuilt = $('.drawer.drawer_layers .wrapper .dynamic-content').is('[data-built]');
+  
+    if (!hasDataBuilt && template) {
+        document.querySelector('.drawer.drawer_layers .wrapper .dynamic-content').innerHTML = template;
+        $('.drawer.drawer_layers .wrapper .dynamic-content').attr('data-built', true)
+    }
+
+    //layerListEl.innerHTML = template;
+    layerListEl.setAttribute('fill', 'true');
+}
+
+
+
+
+
+
+function openLabelPanel(index) {
+    $('.textPopup').prependTo('.node-details-item:eq(' + index + ') .panel');
+
+
+    let nodeColor = sfereJson[index].color.replace('#', '');
+    console.log('>>>>>>>>>>>>>>> colore: '+nodeColor)
+    $('.position_item_controls input').val('#'+nodeColor)
+
+    var isBold = sfereJson[index].isBold ? 'bold' : 'regular';
+
+    var displayName = sfereJson[index].displayName ? sfereJson[index].displayName : sfereJson[index].name;
+    $('.position_item .item_name input').val(displayName);
+
+    $('input#labelAdjustX').val(sfereJson[index].labelAdjustX);
+    $('input#labelAdjustY').val(sfereJson[index].labelAdjustY);
+
+
+    const label = sfereJson[index].displayName?sfereJson[index].displayName:sfereJson[index].name;
+    const labelPosition = sfereJson[index].labelPosition || false;
+    const textPopupEl = document.querySelector('.textPopup');
+    textPopupEl.setAttribute('xxx-label-style', isBold);
+    textPopupEl.setAttribute('xxx-node-color', '#' + nodeColor);
+    textPopupEl.setAttribute('xxx-label-position', labelPosition);
+    textPopupEl.setAttribute('xxx-node-index', index);
+    textPopupEl.setAttribute('xxx-display-name', displayName);
+    textPopupEl.setAttribute('xxx-axis-x', sfereJson[index].labelAdjustX);
+    textPopupEl.setAttribute('xxx-axis-y', sfereJson[index].labelAdjustY);
+    textPopupEl.style.display = 'block';
+    $('.control_button').attr('xxx-node-index', index);
+    //const labelAdjustX = document.querySelector('#labelAdjustX');
+    //const labelAdjustY = document.querySelector('#labelAdjustY');
+
+    //const labelEl = textPopupEl.querySelector('span.label');
+    //labelEl.textContent = label;
+    //labelEl.style.backgroundColor = '#' + sfereJson[index].color.replace('#', '');
+    //textField = document.getElementById("nome_nodo");
+    //textField.value =label;
+
+    console.log(sfereJson[index]);
+
+}
+
+function labelSetSize(mode){
+        switch (mode) {
+            case '+':
+                labelSizeCoef=labelSizeCoef<1000?labelSizeCoef+=1:false
+                console.log('labelSizeCoef: ',labelSizeCoef)
+              break;
+            case '-':
+                labelSizeCoef=labelSizeCoef>0?labelSizeCoef-=1:false
+                console.log('labelSizeCoef: ',labelSizeCoef)
+            default:
+        }
+}
+function labelSetSizeSingular(mode, id){
+    let coefficient;
+    switch (mode) {
+        case '+':
+            coefficient = sfereJson[id].labelSize?sfereJson[id].labelSize:0;
+            sfereJson[id].labelSize=coefficient+1
+          break;
+        case '-':
+            coefficient = sfereJson[id].labelSize?sfereJson[id].labelSize:0;
+            sfereJson[id].labelSize=(coefficient>0)?coefficient-1:0;
+        default:
+    }
+}
+
+
+function nodeColorChange(element) {
+    var newColorValue = element.value;
+    $('.textPopup').attr('xxx-node-color', newColorValue)
+    //console.log('Ultimo valore selezionato:', newColorValue);
+}
+
+function savec () {
+    let fileName = prompt("Please enter your image name");
+    saveCanvas(c, fileName, "png");
+  };
+
+
+function closeLabelPopup() {
+    document.querySelector('.textPopup').style.display = 'none';
+}
+
+function saveLabelPopup(){
+    //console.log()
+    let labelPosition = $('.textPopup').attr('xxx-label-position');
+    let textStyle = $('.textPopup').attr('xxx-label-style');
+    let index =  parseInt($('.textPopup').attr('xxx-node-index'));
+    let nodeColor =  $('.textPopup').attr('xxx-node-color');
+    let displayName =  $('.textPopup').attr('xxx-display-name');
+    //let displayName = $('input#nome_nodo').val();
+
+    //const labelAdjustX = document.querySelector('#labelAdjustX');
+    //const labelAdjustY = document.querySelector('#labelAdjustY');
+
+    const labelAdjustX = $('.textPopup').attr('xxx-axis-x');
+    const labelAdjustY = $('.textPopup').attr('xxx-axis-y');
+
+    /*sfereJson[index].labelAdjustX = labelAdjustX;
+    sfereJson[index].labelAdjustY = labelAdjustY;*/
+    sfereJson[index].labelAdjustX = labelAdjustX;
+    sfereJson[index].labelAdjustY = labelAdjustY;
+    sfereJson[index].labelPosition = labelPosition;
+    sfereJson[index].displayName = displayName;
+
+    sfereJson[index].isBold = textStyle == "bold" ? true : false;
+    //sfereJson[index].name = name;
+
+    console.log('>>>>>>>>>>>>> colore 2: ', nodeColor)
+    sfereJson[index].color = nodeColor;
+
+
+    document.querySelector('.textPopup').style.display = 'none';
+
+    $('.position_contaniner').attr('data-changed', false);
+}
+
+
+function showHideSphere(index) {
+try{
+    //console.log('showHideSphere ' + index);
+    let hidden = sfereJson[index].hide ? false : true;
+    sfereJson[index].hide = hidden;
+    $('.manage button[xx-data-id="' + index + '"]').attr('cc-item-hide', hidden);
+    let nameItem = $('.manage button[xx-data-id="' + index + '"]').attr('xx-data-node') + '+' + $('.manage button[xx-data-id="' + index + '"]').attr('xx-data-layer')
+    //console.log('nameItem:', nameItem)
+    nodeListPosition[nameItem].hide = hidden;
+}
+catch(e){
+    console.log(e)
+}
+
+}
+
+function keyPressedShowAllNode(){
+    let buttons = document.querySelectorAll('.listanodi button[cc-item-hide]');
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute('cc-item-hide', 'false');
+    }
+    Object.keys(nodeListPosition).map(function (objectKey, index) {
+      showHideSphere(index)
+    });
+  }
+  
+
+
+
+
+
+
+function showHideLayer(index) {
+    /*
+    let hidden = zzzz[index].hide ? false : true;
+    zzzz[index].hide = hidden;
+    const layerButtons = document.querySelectorAll('.listalayer button');
+    layerButtons.forEach((button) => {
+        if (button.getAttribute('xx-data-id') == index) {
+            button.setAttribute('cc-item-hide', hidden);
+        }
+    });
+    */
+
+
+  let hidden = zzzz[index].hide ? false : true;
+  zzzz[index].hide = hidden;
+  $('.drawer_layers button[xx-data-id="' + index + '"]').attr('cc-item-hide', hidden);
+}
+
+
+function nodeList() {
+    //console.log('*** nodeList');
+    let template = '';
+    let template_ = '';
+    const nodeButtons = document.querySelectorAll('.listanodi button[cc-item-hide]');
+
+    //template += '<div class="drawer-title">Selezionare nodi</div>';
+
+    for (let i = 0; i < sfereJson.length; i++) {
+        const obj = sfereJson[i];
+
+        let obj_id = obj.name;
+        let obj_label = obj.name;
+        let obj_zlayer = parseFloat((obj.layer).replace('Layer', '')) - 1;
+        let obj_zlevel = obj.layer;
+        let obj_color = obj.color;
+
+        
+        template_ += `
+                <button xx-data-id="${i}" xx-data-zlevel="${obj_zlevel}" xx-data-layer="${obj_zlevel}" xx-data-id="${obj_id}" xx-data-node="${obj_id}">
+                    <span style="background-color:#${obj_color.replace('#', '')}" class="node_color"></span>
+                    <span class="node_label">${obj_label}</span>
+                    <span class="node_layer">L${obj_zlayer}</span>
+                    <span class="node_sh" onclick="showHideSphere(${i})">O</span>
+                    <span class="node_t" onclick="openLabelPanel(${i})">T</span>
+                </button>`;
+        
+        
+
+
+        
+
+        template += `<div class="details-item node-details-item">
+                        <div class="title">${obj_label}</div>
+                        <div class="info">
+                            <div class="layer">Layer ${obj_zlayer}</div>
+                            <div class="manage">
+                                <button class="manage-show" xx-data-id="${i}" xx-data-zlevel="${obj_zlevel}" xx-data-layer="${obj_zlevel}" xx-data-id="${obj_id}" xx-data-node="${obj_id}" onclick="showHideSphere(${i})">show/hide</button>
+                                <button class="manage-config" onclick="openLabelPanel(${i})">config</button>
+                            </div>
+                        </div>
+                        <div class="panel"></div>
+                    </div>`;
+   
+                    
+        if (nodeButtons[i]) {
+            nodeButtons[i].setAttribute('cc-item-hide', 'false');
+        }
+    }
+
+    //document.querySelector('.menu-layer.listanodi .nodi_wrapper').innerHTML = template_;
+
+    var hasDataBuilt = $('.drawer.drawer_nodi .wrapper .dynamic-content').is('[data-built]');
+  
+    if (!hasDataBuilt && template) {
+        document.querySelector('.drawer.drawer_nodi .wrapper .dynamic-content').innerHTML = template;
+        $('.drawer.drawer_nodi .wrapper .dynamic-content').attr('data-built', true)
+    }
+
+    document.querySelector('.menu-layer.listanodi').setAttribute('fill', 'true');
+}
+
+
+
+ /* src/01_layer.js - start*/ 
+
+function layer() {
+  for (obj of zzzz) {
+
+    let obj_level = obj.name;
+    let obj_z = parseFloat(obj.position_x);
+    let obj_floor_current_color = obj.floor_current_color;
+    let obj_geometry_parameters_width = parseFloat(obj.geometry_parameters_width);
+    let obj_last_layer_scale = "1";
+    let obj_name = obj.name;
+    let obj_position_x = parseFloat(obj.position_x);
+    let obj_position_y = parseFloat(obj.position_y);
+    let obj_position_z = parseFloat(obj.position_z);
+    let obj_rotation_x = parseFloat(obj.rotation_x);
+    let obj_rotation_y = parseFloat(obj.rotation_y);
+    let obj_rotation_z = parseFloat(obj.rotation_z);
+
+    if (!obj.hide) {
+      push(),
+        squareColor = color(255, 255, 255, .50),
+        noStroke(),
+        fill('rgba(255,255,255, 0.5)'),
+        translate(0, 0, (obj_z * layerZcoef) - 5);
+
+/*
+        for (var x = 0; x < width; x += width / 10) {
+          for (var y = 0; y < height; y += height / 10) {
+            stroke(0);
+            strokeWeight(1);
+            line(x, 0, x, height);
+            line(0, y, width, y);
+          }
+        };
+*/
+
+        specularMaterial(0),
+        plane(1e3, 1e3),
+        translate(-450, -420, 10),
+        squareColor = color(255, 255, 255, .85),
+        fill('rgba(255,255,255, 0.85)'),
+        textSize(60);
+      if (obj_level > -1) text('level' + obj_level, -30, -10);
+      pop();
+    }
+  }
+  if (document.querySelectorAll('.menu-layer.listalayer button').length == 0) layerList();
+}
+
+
+
+function parseobjectLoaded() {
+    sfereJson = objectLoaded[0],
+    zzzz = objectLoaded[1],
+    connection = objectLoaded[2];
+    console.log('connection2 : ', connection)
+    //oggettoSfere = objectLoaded[0];
+}
+
+
+function base() {
+  push(), fill(80), rotateY(0), box(500, 3, 500), pop();
+}
+
+
+
+function textRotationY(quanto) {
+  textYrotation += quanto;
+}
+function textRotationX(quanto) {
+  textXrotation += quanto;
+}
+
+
+
+ /* src/02_node_creation.js - start*/ 
+
+function sfere(sfereData) {
+
+  let index = 0;
+  for (let obj of sfereData) {
+
+    let obj_id = obj.name;
+    let obj_displayName = obj.displayName?obj.displayName:false;
+    let obj_x = parseFloat(obj.position_z);
+    let obj_y = 0 - parseFloat(obj.position_y);
+    let obj_nodesize = parseFloat(obj.scale_x);
+    let obj_label = obj.name;
+    let obj_zlevel = parseFloat((obj.layer).replace('Layer', '')) - 1;
+    let obj_hide = obj.hide?obj.hide:false;
+    let obj_isBold = obj.isBold;
+    let obj_labelSizeCoef = obj.labelSize;
+
+    let obj_labelAdjustX = obj.labelAdjustX?parseInt(obj.labelAdjustX):0;
+    let obj_labelAdjustY = obj.labelAdjustY?parseInt(obj.labelAdjustY):0;
+
+    let obj_nodecolor = obj.color;
+
+    font = (obj_isBold=="true" || obj_isBold==true)?font=font_bold:font=font_light;
+
+    if (obj && obj_zlevel in zzzz && !obj_hide && !zzzz[obj_zlevel].hide) {
+
+      let obj_z = zzzz[obj_zlevel].position_x;
+
+      let layername = `${obj_id}+Layer${obj_zlevel + 1}`;
+      nodeListPosition[layername] = { x: obj_x, y: obj_y, z: obj_z, layer: obj_zlevel };
+
+      push();
+      translate(obj_x, obj_y, obj_z * layerZcoef);
+      noStroke();
+      fill(obj_nodecolor);
+      let sphereSizeR = 6 * obj_nodesize * sfereCoef;
+
+      specularMaterial(40);
+      sphere(sphereSizeR);
+
+      if (label) {
+        labelsize = obj_labelSizeCoef?parseInt(obj_labelSizeCoef):0;
+        let labelSizeCoef_ = labelSizeCoef+labelsize;
+
+        textFont(font, 11 + labelSizeCoef_);
+        rotateY(textYrotation);
+        rotateX(textXrotation);
+        translate(0, 0, 10);
+
+        let fontSizeLarge = 11 + labelSizeCoef_;
+        textSize(fontSizeLarge);
+        
+        
+
+        fill(obj_nodecolor);
+        let testoLabel = obj_displayName?obj_displayName:obj_label;
+        let bounding_box2 = font.textBounds(testoLabel, 20, 60, fontSizeLarge+(labelSizeCoef_/2));
+
+        noStroke();
+        let verticalbox = -(sphereSizeR + 20);
+        let vertical = -(sphereSizeR + 10);
+
+        if (obj.labelPosition === 'top') {
+          vertical = -(sphereSizeR + 10);
+          verticalbox = -(sphereSizeR + 20);
+        }
+
+        if (obj.labelPosition === 'bottom') {
+          vertical = sphereSizeR + 20;
+          verticalbox = sphereSizeR + 10;
+        }
+
+        rect(obj_labelAdjustX-2-(labelSizeCoef_), verticalbox+obj_labelAdjustY-(labelSizeCoef_), bounding_box2.w + 4, bounding_box2.h + 4);
+        fill(0);
+        translate(0, 0, 1);
+        
+
+        text(testoLabel, obj_labelAdjustX, vertical+obj_labelAdjustY);
+      }
+
+      translate(0, 0, 1);
+      pop();
+    }
+    index++;
+  }
+
+  let makeConnection = linee(connection);
+  if (document.querySelectorAll('.menu-layer.listanodi button').length === 0) nodeList();
+}
+
+ /* src/03_edge_draw.js - start*/ 
+
+function linee(connection) {
+
+
+  for (let obj of connection) {
+
+    let obj_from = obj.src;
+    let obj_to = obj.trg;
+
+    let layerFrom = nodeListPosition[obj_from].layer;
+    let layerTo = nodeListPosition[obj_to].layer;
+    let isHide_to = nodeListPosition[obj_to].hide?nodeListPosition[obj_to].hide:false;
+    let isHide_from = nodeListPosition[obj_from].hide?nodeListPosition[obj_from].hide:false;
+
+    if (!isHide_to && !isHide_from && !zzzz[layerFrom].hide && !zzzz[layerTo].hide) {
+      if (
+        nodeListPosition[obj_to] &&
+        nodeListPosition[obj_from] &&
+        nodeListPosition[obj_from].x &&
+        nodeListPosition[obj_to].x
+      ) {
+
+        let xFrom = nodeListPosition[obj_from].x,
+          yFrom = nodeListPosition[obj_from].y,
+          zFrom = nodeListPosition[obj_from].z * layerZcoef,
+
+          xTo = nodeListPosition[obj_to].x,
+          yTo = nodeListPosition[obj_to].y,
+          zTo = nodeListPosition[obj_to].z * layerZcoef;
+
+        let colore = obj.color,
+          stroke_weight = obj.size * lineeCoef;
+
+        push();
+        smooth();
+        stroke(colore);
+        smooth();
+        strokeWeight(stroke_weight);
+        smooth();
+        specularMaterial(90);
+        line(xFrom, yFrom, zFrom, xTo, yTo, zTo);
+        let sphereToSize = sfereJson.filter(({ name }) => name === obj_to.split('+')[0]).filter(({ layer }) => layer === obj_to.split('+')[1])[0].scale_x;
+        let sphereFromSize = sfereJson.filter(({ name }) => name === obj_from.split('+')[0]).filter(({ layer }) => layer === obj_from.split('+')[1])[0].scale_x;
+        let sphereA = { position: createVector(xFrom, yFrom, zFrom), radius: ((12 + 5 * sphereFromSize) * sfereCoef) };
+        let sphereB = { position: createVector(xTo, yTo, zTo), radius: ((12 + 5 * sphereToSize) * sfereCoef) };
+        push()
+        //console.log("freccia: ", obj.arrow)
+        if (obj.arrow === "true") {
+          if (xFrom > xTo) {
+            let buildArrow = orientCylinder(sphereA, sphereB, stroke_weight, colore, stroke_weight, obj_from, obj_to)
+          } else {
+            let buildArrow = orientCylinder_invert(sphereB, sphereA, stroke_weight, colore, stroke_weight, obj_from, obj_to)
+            //let buildArrow = orientCylinder(sphereA, sphereB, stroke_weight, colore, stroke_weight, obj.from, obj.to)
+          }
+        }
+        pop()
+        pop();
+      }
+    }
+  }
+  return true;
+}
+
+
+
+
+
+
+function orientCylinder(sphere1, sphere2, size, colore, lineSize, froml, tol) {
+  push();
+  let distance = sphere1.position.dist(sphere2.position);
+  let direction = p5.Vector.sub(sphere2.position, sphere1.position).normalize();
+  let middlePoint1 = p5.Vector.add(sphere1.position, p5.Vector.mult(direction, sphere1.radius));
+  let middlePoint2 = p5.Vector.sub(sphere2.position, p5.Vector.mult(direction, sphere2.radius));
+  let middle = p5.Vector.add(middlePoint1, middlePoint2).div(2);
+  let axis = createVector(0, 1, 0).cross(direction);
+  let angle = createVector(0, 1, 0).angleBetween(direction);
+  translate(middle);
+  rotate(angle, axis);
+  noStroke();
+  fill(colore)
+  //cylinder(size, distance - sphere1.radius - sphere2.radius - 20);
+  push();
+  translate(0, (distance - sphere1.radius - sphere2.radius) / 2, 0);
+  specularMaterial(60);
+  cone(3 + lineSize, 16 + lineSize);
+  fill(0, 0, 0)
+  let fontSizeLarge = (12 + textSizeCoeff)
+  textSize(fontSizeLarge);
+  let testoLabel = froml + ' > ' + tol;
+  // text(testoLabel, -30, -30);
+  pop();
+  pop();
+  return true;
+}
+
+
+
+
+
+function orientCylinder_invert(sphere1, sphere2, size, colore, lineSize, froml, tol) {
+  push();
+  let distance = sphere1.position.dist(sphere2.position);
+  let direction = p5.Vector.sub(sphere2.position, sphere1.position).normalize();
+  let middlePoint1 = p5.Vector.add(sphere1.position, p5.Vector.mult(direction, sphere1.radius));
+  let middlePoint2 = p5.Vector.sub(sphere2.position, p5.Vector.mult(direction, sphere2.radius));
+  let middle = p5.Vector.add(middlePoint1, middlePoint2).div(2);
+  let axis = createVector(0, 1, 0).cross(direction);
+  let angle = createVector(0, 1, 0).angleBetween(direction);
+  translate(middle);
+  rotate(angle, axis);
+  noStroke();
+  fill(colore)
+  //cylinder(size, distance - sphere1.radius - sphere2.radius - 20);
+  push();
+  translate(0, -(distance - sphere1.radius - sphere2.radius) / 2, 0);
+  rotateX(PI);
+  specularMaterial(60);
+  cone(3 + lineSize, 16 + lineSize);
+
+  fill(0, 0, 0)
+  let fontSizeLarge = (12 + textSizeCoeff)
+  textSize(fontSizeLarge);
+  let testoLabel = froml + ' > ' + tol;
+  // text(testoLabel, -30, -30);
+
+  pop();
+  pop();
+  return true;
+}
+
+ /* src/04_load_file.js - start*/ 
+function handleClick(elemento) {
+  elemento.checked ? label = true : label = false;
+}
+
+function gotData(data) {
+  console.log('data: ' + data);
+}
+
+function handleFile(file) {
+  console.log(file.data[0]),
+  console.log(file.data[1]),
+  console.log(file.data[2]),
+  objectLoaded = file.data,
+  parseobjectLoaded();
+}
+
+function handleColor(data) {
+  console.table(data);
+}
+
+function newFile() {
+  const obj = [[{ id: 'nodo1.1', x: 0, y: 0, z: 0, nodesize: 10, label: 'nodo1-layer1', zlevel: 0, nodecolor: '#cccccc' }], [{ level: 0, z: 1 }], []];
+  objectLoaded = obj, parseobjectLoaded();
+}
+
+
+
+
+function exportFile(){
+let fileName = prompt("Please enter your file name");
+console.log(' nome per il file', fileName)
+
+if (fileName != null) {
+
+
+  let objSchema = {
+      "scene_pan":{
+          "position_x":"0", 
+          "position_y":"0", 
+          "scale_x":"0.336569927599661", 
+          "color":"#000000"
+      }, 
+      "scene_sphere":{
+          "rotation_x":"-0.386047223242714", 
+          "rotation_y":"0.378081984494371", 
+          "rotation_z":"-0.0257832291643735"
+      }, 
+      "layers":[], 
+      "nodes":[], 
+      "edges":[]
+  };
+
+  objSchema.layers = zzzz;
+  objSchema.nodes = sfereJson;
+  objSchema.edges = connection;
+
+  const content = JSON.stringify(objSchema);
+
+  // Crea un oggetto Blob dal contenuto
+  const blob = new Blob([content], {type: "application/json"});
+
+  // Crea un URL temporaneo per il blob
+  const url = URL.createObjectURL(blob);
+
+  // Crea un elemento 'a' HTML per il link di download
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName+'.json';
+  link.click();
+
+  return objSchema;
+
+}else{
+  console.log('nessun nome per il file')
+}
+
+}
+
+
+
+function trasforma(mathLabObj) {
+
+  let mioOggetto = [];
+  let newNode = [];
+  let newLayers = [];
+  let newConnect = [];
+
+  mioOggetto.push(mathLabObj.nodes)
+  mioOggetto.push(mathLabObj.layers)
+  mioOggetto.push(mathLabObj.edges)
+
+  objectLoaded = mioOggetto,
+  parseobjectLoaded();
+  document.body.setAttribute("file-load", "");
+  console.log(mioOggetto);
+}
+
+function loadFile() {
+  if(!window.jsonObj){
+    var input, file, fr;
+
+    if (typeof window.FileReader !== 'function') {
+      alert("The file API isn't supported on this browser yet.");
+      return;
+    }
+    input = document.getElementById('fileinput');
+    if (!input) {
+      alert("Um, couldn't find the fileinput element.");
+    }
+    else if (!input.files) {
+      alert("This browser doesn't seem to support the `files` property of file inputs.");
+    }
+    else if (!input.files[0]) {
+      alert("Please select a file before clicking 'Load'");
+    }
+    else {
+      file = input.files[0];
+      fr = new FileReader();
+      fr.onload = receivedText;
+      fr.readAsText(file);
+    }
+  }else{
+    trasforma(jsonObj)
+  }
+
+  function receivedText(e) {
+    let lines = e.target.result;
+    var newArr = JSON.parse(lines);
+    console.log(newArr)
+    trasforma(newArr)
+  }
+
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  window.jsonObj=(window.jsonObj?window.jsonObj:false);
+  if(window.jsonObj){
+    trasforma(jsonObj);
+  }
+
+  const fileInput = document.getElementById('fileinput');
+  fileInput.addEventListener('change', function() {
+    // callback function
+    loadFile();
+    // esegui altre operazioni qui
+  });
+});
+
+
+
+
+
+
+ /* src/05_command.js - start*/ 
+var comands = {};
+
+comands.handlers = function () {
+  $('.comand-item.comand-item-button.layer').on('click', function (e) {
+    e.preventDefault();
+    $('.menu-layer.listalayer').toggleClass('selected');
+    $('.drawer.drawer_layers').addClass('open');
+  });
+
+  $('.comand-item.comand-item-button.nodi').on('click', function (e) {
+    e.preventDefault();
+    $('.menu-layer.listanodi').toggleClass('selected');
+    $('.drawer.drawer_nodi').addClass('open');
+  });
+
+  $('.drawer .close a').on('click', function (e) {
+    e.preventDefault();
+    $(this).parents('.drawer').removeClass('open');
+  });
+
+  $('.menu-collapse button').on('click', function (e) {
+    e.preventDefault();
+    $('body').toggleClass('menu-collapsed');
+  });
+  $('.comandi-collapse button').on('click', function (e) {
+    e.preventDefault();
+    $('.comandi-bottom').toggleClass('collapsed');
+  });
+
+
+  $('body').on('click', '.input-minus-plus.layers button.meno', function () {
+    console.log('layer meno')
+    layerZcoef -= .1;
+  })
+
+
+  $('body').on('click', '.input-minus-plus.layers button.piu', function () {
+    console.log('layer piu')
+    layerZcoef += .1;
+  })
+
+
+  $('body').on('click', '.input-minus-plus.nodi button.meno', function () {
+    console.log('nodi meno')
+    sfereCoef -= .1;
+  })
+
+  $('body').on('click', '.input-minus-plus.nodi button.piu', function () {
+    console.log('nodi piu')
+    sfereCoef += .1;
+  })
+
+
+  $('body').on('click', '.input-minus-plus.edge button.meno', function () {
+    console.log('edge meno')
+    lineeCoef -= .5;
+  })
+
+  $('body').on('click', '.position_button', function(){
+    $(this).parents().find('.textPopup').attr('xxx-label-position',  $(this).attr('xxx-data-position'));
+})
+
+  $('body').on('click', '.style_button', function(){
+    $(this).parents().find('.textPopup').attr('xxx-label-style',  $(this).attr('xxx-data-style'))
+  });
+
+  $('body').on('click', '.textPopup input, .textPopup .control_button', function(){
+    $('.position_contaniner').attr('data-changed', true);
+  })
+
+  $('body').on('click', '.input-minus-plus.edge button.piu', function () {
+    console.log('edge piu')
+    lineeCoef += .5;
+  })
+
+
+  $('body').on('click', '.layers-details-item .manage-show', function(){
+    let index = $(this).attr('xx-data-id');
+    showHideLayer(index)
+  });
+
+  $(".item_name input").on('change keydown paste input', function(){
+    var value = $(this).val();
+    $('.textPopup').attr('xxx-display-name', value);
+  });
+
+  $("input#labelAdjustY").on('change keydown paste input', function(){
+    var value = $(this).val();
+    $('.textPopup').attr('xxx-axis-y', value);
+  });
+
+  $("input#labelAdjustX").on('change keydown paste input', function(){
+    var value = $(this).val();
+    $('.textPopup').attr('xxx-axis-x', value);
+  });
+
+
+  $('body').on('click', 'button.start-recording', function () {
+    $('.screen-recording').attr('xxx-video-recorder', 'true')
+  })
+
+  $('body').on('click', 'button.stop-recording', function () {
+    $('.screen-recording').attr('xxx-video-recorder', 'false')
+  })
+
+  $('body').on('click', '.closeVideoBox', function () {
+    $('#videoContainer').remove();
+  })
+
+
+
+  colorPicker = document.querySelector('#canvasColor');
+  colorPicker.addEventListener("change", watchColorPicker, false);
+  function watchColorPicker(event) {
+    bgcolorval = event.target.value;
+    console.log('color: ' + bgcolorval)
+  }
+
+
+
+
+
+}
+
+comands.initial = function () {
+  comands.handlers();
+}
+
+$(function () {
+  comands.initial();
+})
+ /* src/05b_e_mediarecorder.js - start*/ 
+const registra = {};
+
+
+registra.template = `<div id="videoContainer">
+                      <div id="videoPlayerBox">
+                      <div class="closeVideoBox">x</div>
+                      </div>
+                    </div>`;
+
+registra.start = function(){
+  console.log('>>>>>  registra.start ');
+  let recording = false;
+  let chunks = [];
+  
+  const framerate_const = 30;
+  
+  function record() {
+      chunks.length = 0;
+      let stream = document.querySelector('canvas').captureStream(framerate_const);
+      registra.recorder = new MediaRecorder(stream );
+      registra.recorder.ondataavailable = e => {
+          if (e.data.size) {
+              chunks.push(e.data);
+          }
+      };
+      registra.recorder.onstop = exportVideo;
+  }
+  
+  function exportVideo(e) {
+    let fileName = prompt("Please enter your video clip name");
+    if(fileName && fileName !== null && fileName !== "null") {
+      var blob = new Blob(chunks, { 'type': 'video/webm' });
+      // Draw video to screen
+      $('body').append(registra.template);
+      var videoElement = document.createElement('video');
+      videoElement.setAttribute("id", Date.now());
+      videoElement.controls = true;
+      $('#videoPlayerBox').append(videoElement);
+      videoElement.src = window.URL.createObjectURL(blob);
+
+      // Download the video 
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.setAttribute("id", "downloadVideo");
+      a.innerHTML = "Download video";
+      a.style.display = 'none';
+      $('#videoPlayerBox').append(a);
+      a.href = url;
+      a.download = fileName+'.webm';
+      a.click();
+      window.URL.revokeObjectURL(url);
+
+      }else{
+        console.log('>>>>> fileName undefined or null')
+      }
+  }
+  record();
+}
+
+
+/*
+function keyPressed() {
+    // toggle recording true or false
+    recording = !recording
+    console.log(recording);
+    // 82 is keyCode for r 
+    // if recording now true, start recording 
+    if (keyCode === 82 && recording ) {
+      console.log("recording started!");
+      registra.recorder.start();
+    } 
+    // if we are recording, stop recording 
+    if (keyCode === 82 && !recording) {  
+      console.log("recording stopped!");
+      registra.recorder.stop();
+    }
+  }
+  */
+ /* src/06_p5_scheme.js - start*/ 
+var fr = 8;
+var lineeCoef = 2;
+var sfereCoef = 1;
+var labelSizeCoef=0;
+var layerZcoef = 1;
+var textYrotation = 0;
+var textXrotation = 0;
+var textSizeCoeff = 0;
+var layerMenuBuild;
+var offset = 16;
+var oggettoSfere;
+var texts = [];
+var connectionCount = 0;
+var sfereLabelConf = {};
+var setFirstViewStatus = true;
+
+
+var sfereJson = [],
+  connection = [],
+  font,
+  font_bold,
+  font_light,
+  inputx,
+  img,
+  zzzz = [],
+  bgcolorval = '#ffffff',
+  nodeListPosition = {},
+  label = !![],
+  objectLoaded,
+  c,
+  xxx,
+  yyy,
+  zzz;
+
+
+
+function setup() {
+  frameRate(fr);
+  pixelDensity(4);
+  c = createCanvas(windowWidth, windowHeight, WEBGL);
+  setAttributes('antialias', !![]);
+  easycam = new Dw['EasyCam'](this['_renderer'], { 
+    distance: 5000 
+  });
+  textFont(font_light);
+  background(00, 00, 00);
+  registra.start();
+  //noLoop();
+}
+
+
+
+function preload() {
+  /*
+  font = loadFont(
+    "https://cdnjs.cloudflare.com/ajax/libs/topcoat/0.8.0/font/SourceCodePro-Bold.otf"
+  );
+  */
+
+  font_light = loadFont(
+    "/font/Roboto-Regular.ttf"
+  );
+
+  font_bold = loadFont(
+    "/font/Roboto-Bold.ttf"
+  );
+}
+
+
+
+function translaCanvas() {
+  //const zavannah = merilou;
+  if (xxx) easycam.panX(xxx);
+  if (yyy) easycam.panY(yyy);
+  if (zzz) easycam.zoom(zzz);
+  xxx = ![], yyy = ![], zzz = ![];
+}
+
+
+
+function draw() {
+  ambientLight(60, 60, 60);
+  pointLight(255, 255, 255, 300, 300, 3550);
+  background(bgcolorval);
+  sfere(sfereJson);
+  layer();
+  if (xxx || yyy || zzz) translaCanvas();
+  setFirstView();
+}
+
+
+function setFirstView(){
+  if(setFirstViewStatus){
+    setFirstViewStatus=false;
+    console.log('***** setFirstView')
+    easycam.rotateY(-.80);
+    easycam.zoom(-1300);
+  }
+}
+
+
+
+
+function keyPressed() {
+  //console.log('keyPressed');
+  var elementoCliccato = event.target;
+  if ( $(elementoCliccato).closest('.position_item').length ) {
+    console.log('dentro if');
+    return;
+  }
+  if (keyCode === LEFT_ARROW) xxx = 50; else {
+    if (keyCode === RIGHT_ARROW) xxx = -50; else {
+      if (keyCode === UP_ARROW) yyy = 50; else keyCode === DOWN_ARROW && (yyy = -50);
+    }
+  }
+
+  if (key === 'c' || key === 'C') {
+    let buttons = document.querySelectorAll('.listanodi button[cc-item-hide]');
+    buttons.forEach(button => {
+      button.setAttribute('cc-item-hide', 'true');
+    });
+    Object.keys(nodeListPosition).map(function (objectKey, index) {
+      showHideSphere(index)
+    });
+  }
+
+  if (key === 's' || key === 'S') {
+    keyPressedShowAllNode();
+  }
+
+}
+
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight), easycam.setViewport([0, 0, windowWidth, windowHeight]);
+}
+
+/*
+function mousePressed() {
+  loop();
+}
+function touchStarted() {
+  loop();
+}
+
+function mouseReleased() {
+  noLoop();
+}
+function touchEnded() {
+  noLoop();
+}
+
+function mouseWheel(event) {
+  loop();
+}
+*/
+
+
+
+ /* 3d graph visualizer - end */ 
