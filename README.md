@@ -84,10 +84,6 @@ Open MATLAB, navigate to the repository directory, and add the relevant folders 
 3. Make sure all required input files are present in the `Inputs/` folder.
 4. Run the desired script from the `Scripts/` folder.
 
-### Expected execution time
-- `MLN_Network_1.m`: approximately **2 minutes 30 seconds** on a standard desktop computer.
-- `BT_BDA.m`: approximately **a few seconds** on a standard desktop computer.
-
 ## Scripts
 This section describes the structure and purpose of the MATLAB scripts used in the analyses. For the theoretical rationale behind each step, please refer to the main text of the associated manuscript. Detailed comments are also included directly in the MATLAB code.
 
